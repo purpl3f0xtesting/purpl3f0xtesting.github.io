@@ -110,11 +110,11 @@ Restarting vulnserver inside of Immunity again, and then scrolling back down to 
 
 `MOV DWORD PTR SS:[ESP], EAX`
 
-Basically this means move the doubleword in EAX into ESP as a pointer to a memory address. If we look at EAX at this point in time, it's equal to 0x000000C8, which is what we saw for the socket descriptor (I suspect it hasn't changed because I "restarted" it inside of Immunity, rather than shutting it down and re-attaching it. Above the MOV instruction is:
+Basically this means move the doubleword in `EAX` into `ESP` as a pointer to a memory address. If we look at `EAX` at this point in time, it's equal to `0x000000C8`, which is what we saw for the socket descriptor (I suspect it hasn't changed because I "restarted" it inside of Immunity, rather than shutting it down and re-attaching it. Above the MOV instruction is:
 
 `MOV EAX, DWORD PTR:SS[EBP-420]`
 
-Move the doubleword that is at the address stored in EBP - 0x420 bytes. Looking at EBP, it's pointing to 0x123FFB4. Subtracting 0x420 gets me 0x123FB94. I look at that address in the stack:
+Move the doubleword that is at the address stored in `EBP` - 0x420 bytes. Looking at EBP, it's pointing to `0x123FFB4`. Subtracting 0x420 gets me `0x123FB94`. I look at that address in the stack:
 
 ![](https://i.imgur.com/cy1CTZn.png)
 
@@ -122,7 +122,7 @@ Perfect~ I let the exploit run until I hit the first A in the buffer, and double
 
 This way, no matter what the socket descriptor is, I can always find it and use it.
 
-Since this address can also change, it's time to do a little math. Sitting at the top of the A buffer we want to note where ESP currently sits:
+Since this address can also change, it's time to do a little math. Sitting at the top of the A buffer we want to note where `ESP` currently sits:
 
 ![](https://i.imgur.com/phqhGQW.png)
 
@@ -142,7 +142,7 @@ Now before we really begin pushing anything, we need to look at something import
 
 ![](https://i.imgur.com/W5kyYAi.png)
 
-Remember that stack grows towards lower addresses. Right now, ESP is at a higher address than the stager we're building. We risk stepping all over the stager if we start pushing stuff on the stack now. We need to adjust ESP so that it's at an address well below the stager.
+Remember that stack grows towards lower addresses. Right now, `ESP` is at a higher address than the stager we're building. We risk stepping all over the stager if we start pushing stuff on the stack now. We need to adjust `ESP` so that it's at an address well below the stager.
 
 ![](https://i.imgur.com/Zx4dd7f.png)
 
@@ -168,11 +168,11 @@ That's one argument down. The next is "BufSize". Shellcode should only be around
 
 ![](https://i.imgur.com/hLZZQBW.png)
 
-BH represents the 2nd byte in the EBX register, so by adding 4 to that, it's increased to `0x00000400` without having to use nulls.
+BH represents the 2nd byte in the `EBX` register, so by adding 4 to that, it's increased to `0x00000400` without having to use nulls.
 
-Next arg to be set is the address where we want this payload to go. Again, hard-coding isn't an option, and we also want to make sure execution will be passed to the second payload. The easiest thing to do is to is calculate the distance look at where the A buffer ends, look at ESP, and figure out the difference.
+Next arg to be set is the address where we want this payload to go. Again, hard-coding isn't an option, and we also want to make sure execution will be passed to the second payload. The easiest thing to do is to is calculate the distance look at where the A buffer ends, look at `ESP`, and figure out the difference.
 
-ESP at this point is at `0x123F9A0`. The last A in my buffer is at `0x0123FA07`. My last A is 0x67 bytes away from ESP. Wanting to keep the stack an even number though, I just settle 0x64 byes:
+`ESP` at this point is at `0x123F9A0`. The last A in my buffer is at `0x0123FA07`. My last A is 0x67 bytes away from `ESP`. Wanting to keep the stack an even number though, I just settle 0x64 byes:
 
 ![](https://i.imgur.com/hbirniw.png)
 
@@ -187,7 +187,7 @@ To get this value on the stack:
 
 ![](https://i.imgur.com/gpFU3wV.png)
 
-We're almost there. Only the socket descriptor is left. We can push that with a single instruction, but it's not as simple as "PUSH EAX". EAX holds `0x0123FB94`. If we PUSH that, the stack will have `0x0123FB94` on it. The socket descriptor is `0x000000C8` though. So we use:
+We're almost there. Only the socket descriptor is left. We can push that with a single instruction, but it's not as simple as `PUSH EAX`. `EAX` holds `0x0123FB94`. If we PUSH that, the stack will have `0x0123FB94` on it. The socket descriptor is `0x000000C8` though. So we use:
 
 ```
 	PUSH DWORD PTR DS:[EAX]
@@ -199,7 +199,7 @@ This means "push the doubleword that is at the memory address `0x0123FB94` onto 
 
 Now for another slick trick to avoid null bytes.
 
-Recall that recv() is at `0x0040252C`. We can't just put this in the shellcode because the null will terminate the rest of the payload, but there's a way around this:
+Recall that `recv(`) is at `0x0040252C`. We can't just put this in the shellcode because the null will terminate the rest of the payload, but there's a way around this:
 
 ```
 	MOV EAX, 0x40252C90 - Move this value into EAX. This is our address minus the 00 at the front, and a NOP added on the end for padding.
@@ -209,7 +209,7 @@ Recall that recv() is at `0x0040252C`. We can't just put this in the shellcode b
 
 ![](https://i.imgur.com/0rab8WL.png)
 
-At this point, our stager is complete. All of the arguments are on the stack, in the right order, and we're invoking recv(), which will take any additional buffer we send and write it into memory, at a location of our choosing. You can get the opcodes by highlighting all the assembly, right-clicking, and chosing "Binary Copy". Don't do "Copy to clipboard", that copies the addresses, opcodes, and assembly.
+At this point, our stager is complete. All of the arguments are on the stack, in the right order, and we're invoking `recv()`, which will take any additional buffer we send and write it into memory, at a location of our choosing. You can get the opcodes by highlighting all the assembly, right-clicking, and chosing "Binary Copy". Don't do "Copy to clipboard", that copies the addresses, opcodes, and assembly.
 
 ![](https://i.imgur.com/p94P8Rp.png)
 
