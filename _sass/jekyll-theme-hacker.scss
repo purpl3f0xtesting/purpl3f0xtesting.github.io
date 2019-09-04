@@ -34,23 +34,15 @@ body {
     	margin-left:100px;
     	min-width: 225px;
     }
-    .page-wrap {
-  		position: -webkit-sticky;
-  		position: sticky;
-  		top: 50px;
-	}
 }
 
 @media screen and (max-width:899px) {
 	.sidebar {
 		float:left;
     	position:static;
-    	margin-left:25;
-    	min-width: 150;
+    	margin-left:75px;
+    	min-width: 175px;
     }
-    .page-wrap {
-  		position: fixed;
-	}
 }
 
 .sidebar img {
