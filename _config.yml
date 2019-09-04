@@ -5,3 +5,4 @@ google_analytics:
 theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
+  - jeyll-avatar
