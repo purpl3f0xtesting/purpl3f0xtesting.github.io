@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: home
 ---
 
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
