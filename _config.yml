@@ -1,9 +1,5 @@
 title: Purpl3 F0x Secur1ty
 description: Security Research.
-author:
-	name: "PurpleF0x"
-    email: "purpl3f0xsecur1ty@outlook.com"
-    
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-hacker
