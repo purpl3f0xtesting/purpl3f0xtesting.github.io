@@ -19,6 +19,7 @@ body {
 
 /* General & 'Reset' Stuff */
 
+/* Side bar */
 .sidebar {
 	float:left;
     position:relative;
@@ -31,6 +32,15 @@ body {
     max-width:250px;
     max-height:250px;
 }
+
+.sidebar .card {
+  width: 95%;
+  margin: 1px auto;
+  border: 1px solid #e4e1e1;
+  border-radius: 10px 10px 4px 4px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #e0e0eb;
+  font-size: 1.2em;
 
 .container {
   width: 90%;
