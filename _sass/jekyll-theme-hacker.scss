@@ -21,10 +21,13 @@ body {
 
 .sidebar {
 	float:left;
-    max-width:250px;
-    max-height:250px;
     position:relative;
     margin-left:100px
+}
+
+.sidebar img {
+    max-width:250px;
+    max-height:250px;
 }
 
 .container {
