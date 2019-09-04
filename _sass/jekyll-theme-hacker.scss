@@ -20,6 +20,13 @@ body {
 /* General & 'Reset' Stuff */
 
 /* Side bar */
+
+.page-wrap {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50px;
+}
+
 .sidebar {
 	float:left;
     position:relative;
