@@ -39,7 +39,7 @@ body {
 @media screen and (max-width:899px) {
 	.sidebar {
 		float:left;
-    	position:relative;
+    	position:fixed;
     	margin-left:75px;
     	min-width: 175px;
     }
