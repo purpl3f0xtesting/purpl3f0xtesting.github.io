@@ -63,7 +63,7 @@ Perfect. I hit the very first A in the buffer. Now I have 70 bytes to play with.
 
 ![](https://i.imgur.com/0N4O9Z3.jpg)
 
-Again, borrowing this from Rastating's post, because it's a good visual aid. So when making a TCP connection, as Vulnserver does, the server has to set up the socket in this manner. The binding and listening occurs on a per-port basis, which is why this exploit is a socket *reuse*, and not just making a new socket, because that would mean opening up a new port. Once the socket and connection is established, programs can call `send(`) or `recv()` to exchange data. `Recv()` will accept incoming data and write it somewhere to memory. The goal of this exploit is to invoke the `recv()` syscall, pass in the proper parameters to reuse Vulnserver's socket, and then send a second-stage payload that won't get truncated because it doesn't need to overflow the KSTET command (which is what I suspect is truncating the first payload).
+Again, borrowing this from Rastating's post, because it's a good visual aid. So when making a TCP connection, as Vulnserver does, the server has to set up the socket in this manner. The binding and listening occurs on a per-port basis, which is why this exploit is a socket *reuse*, and not just making a new socket, because that would mean opening up a new port. Once the socket and connection is established, programs can call `send()` or `recv()` to exchange data. `Recv()` will accept incoming data and write it somewhere to memory. The goal of this exploit is to invoke the `recv()` syscall, pass in the proper parameters to reuse Vulnserver's socket, and then send a second-stage payload that won't get truncated because it doesn't need to overflow the KSTET command (which is what I suspect is truncating the first payload).
 
 To start figuring all this out, I have to restart vulnserver in the debugger and let it stay paused at the entry point. I start to scroll down until I see the `recv()` syscall:
 
@@ -106,7 +106,7 @@ Letting the program execute until the NOP sled is hit, it appears that the param
 
 Here's where knowing assembly becomes key. I've got a fair understanding but I learned some new stuff doing this too.
 
-Restarting vulnserver inside of Immunity again, and then scrolling back down to the call to recv(), we need to analyze some of the assembly above the call. Once again my exploit is run and I hit the breakpoint at the call, and start looking at the assembly, and the registers.
+Restarting vulnserver inside of Immunity again, and then scrolling back down to the call to `recv()`, we need to analyze some of the assembly above the call. Once again my exploit is run and I hit the breakpoint at the call, and start looking at the assembly, and the registers.
 
 `MOV DWORD PTR SS:[ESP], EAX`
 
@@ -240,6 +240,3 @@ It's weird. On one hand, this comes across to me as brilliantly simple, probably
 [Rastating's blog that made this possible](https://rastating.github.io/using-socket-reuse-to-exploit-vulnserver/)
 
 [Microsoft documentation on recv()](https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-recv)
-				
-						
-		
