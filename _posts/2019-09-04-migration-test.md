@@ -2,11 +2,8 @@
 published: false
 ---
 
-
-Intro
-
-
-
+#Intro
+=====
 ***Before I say anything...!***
 
 ---> [All credit goes to this awesome guy here!](https://rastating.github.io/using-socket-reuse-to-exploit-vulnserver/) <---
@@ -54,7 +51,7 @@ There, now I have my opcodes without having to open up NASM_shell or google or d
 
 Stepping into the instruction, I get:
 
-![] https://i.imgur.com/6S5JAl9.png" 
+![](https://i.imgur.com/6S5JAl9.png)
 
 Perfect. I hit the very first A in the buffer. Now I have 70 bytes to play with.
 
@@ -64,34 +61,35 @@ Part 2 - Understanding sockets
 
 
 
-![] https://i.imgur.com/0N4O9Z3.jpg" 
+![](https://i.imgur.com/0N4O9Z3.jpg)
 
 Again, borrowing this from Rastating's post, because it's a good visual aid. So when making a TCP connection, as Vulnserver does, the server has to set up the socket in this manner. The binding and listening occurs on a per-port basis, which is why this exploit is a socket *reuse*, and not just making a new socket, because that would mean opening up a new port. Once the socket and connection is established, programs can call send() or recv() to exchange data. Recv() will accept incoming data and write it somewhere to memory. The goal of this exploit is to invoke the recv() syscall, pass in the proper parameters to reuse Vulnserver's socket, and then send a second-stage payload that won't get truncated because it doesn't need to overflow the KSTET command (which is what I suspect is truncating the first payload).
 
 To start figuring all this out, I have to restart vulnserver in the debugger and let it stay paused at the entry point. I start to scroll down until I see the recv() syscall:
 
-![] https://i.imgur.com/thjsXIS.png" 
+![](https://i.imgur.com/thjsXIS.png)
 
 Not terribly far down I find it. Looks like it's part of WS2_32, which makes sense. I've seen that being called when analyzing shellcode in the debugger, so I'd figured out that it was what Windows uses for sockets. I set a breakpoint here and run the program. Nothing happens since I haven't tried to connect yet, so I ran the exploit again. The breakpoint was hit, and the stack contained the parameters I needed:
 
-![] https://i.imgur.com/dfkobV9.png" 
+![](https://i.imgur.com/dfkobV9.png)
 
-Going off of what <a href="https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-recv" target="_blank">what Microsoft says about recv(),</a> these parameters basically mean:
+Going off of what [what Microsoft says about recv()](https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-recv), these parameters basically mean:
 
-
+```
 	Socket = The socket descriptor
 	Buffer = the location in memory that this incoming data will be written to
 	BufSize = the allocated space for the incoming data
 	Flags = Flags that can influence the behavior of the socket. None are set here.
-
+```
 
 It's important to note these because these need to be pushed onto the stack at the time that we make our own call to recv(). The trick is pushing them onto the stack correctly. There are a few obstacles in the way. The first should be obvious, the 0 we need for the flags parameter. We can't use null bytes in shellcode so that has to be pushed using other techniques. The less obvious one is the socket descriptor. This value will change every time the program is run, so it can't be hard-coded in the exploit. We have to find a way to dynamically find out what it is and reuse it.
 
 A quick side note; Just for curiosity's sake, I followed the address pointed to by the "Buffer" argument in dump just to see if it really was pointing at my payload and:
 
-![] https://i.imgur.com/oXnh9m1.png" 
+![](https://i.imgur.com/oXnh9m1.png)
 
-Probably obvious but I just felt like confirming that I was understanding things correctly.<br 
+Probably obvious but I just felt like confirming that I was understanding things correctly.
+
 So, before moving on, it's important to note the address of where recv() is by double-clicking the instruction:
 
 <a href="https://i.imgur.com/X9qmyK7.png" target="_blank">![] https://i.imgur.com/X9qmyK7.png" style="height:181px; width:1247px" </a>
