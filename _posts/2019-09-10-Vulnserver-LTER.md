@@ -54,7 +54,7 @@ A difference of 0x1372, or 4978 decimal bytes.
 
 Fortunately, setting up ESP can be done with alphanumeric-friendly opcodes, so this won't have to be encoded.
 
-```python
+```c
 54          PUSH ESP        # Push the value of ESP onto the stack
 58          POP EAX         # Pop that value into EAX
 66057013    ADD AX, 0x1370  # Add 0x1370 to the AX register to make it 0x00E8FFFE
