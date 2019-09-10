@@ -48,8 +48,8 @@ Now I'm in the buffer of "D"s. There isn't a ton of room to work with here so I 
 
 Starting out, I need to look at the address of the last "D", and compare that to ESP. I need to make ESP point to the bottom of the "D"s so that any carved shellcode will appear there.
 
-Bottom of the "D"s: 0x00E8FFFE
-ESP after the jump: 0x00E8EC8C
+Bottom of the "D"s: `0x00E8FFFE`
+ESP after the jump: `0x00E8EC8C`
 A difference of 0x1372, or 4978 decimal bytes.
 
 Fortunately, setting up ESP can be done with alphanumeric-friendly opcodes, so this won't have to be encoded.
@@ -57,7 +57,16 @@ Fortunately, setting up ESP can be done with alphanumeric-friendly opcodes, so t
 ```nasm
 54          PUSH ESP        ; Push the value of ESP onto the stack
 58          POP EAX         ; Pop that value into EAX
-66057013    ADD AX, 0x1370  ; Add 0x1370 to the AX register to make it 0x00E8FFFE
+66057013    ADD AX, 0x1370  ; Add 0x1370 to the AX register to make it 0x00E8FFFC
 50          PUSH EAX        ; Push this new value onto the stack
 5C          POP ESP         ; Pop this value into ESP
 ```
+
+I ended up cutting it short by 2 bytes, because setting ESP to `0x00E8FFFE` caused the stack to be out of alignment. With ESP now set, I can get to work carving out my shellcode.
+
+Using the addition method, I 0 out EAX, do some math to it to match `0x909080EB`, and push that onto the stack, making the opcodes appear out of thin air:
+
+![]({{site.baseurl}}/assets/images/lter/08.png)
+
+![]({{site.baseurl}}/assets/images/lter/09.png)
+
