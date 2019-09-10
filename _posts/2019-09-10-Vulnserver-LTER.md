@@ -129,3 +129,7 @@ I can save myself some carving by just putting `\x54\x5B` right into the payload
 After stepping-thru the carver:
 
 ![]({{site.baseurl}}/assets/images/lter/14.png)
+
+Now is when things get a little complex, because the stack is out of alignment again, and my payload is dying because of the misalignment:
+
+![]({{site.baseurl}}/assets/images/lter/22.png)
