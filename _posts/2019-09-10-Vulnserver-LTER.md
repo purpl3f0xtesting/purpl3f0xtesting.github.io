@@ -7,7 +7,7 @@ title: Vulnserver LTER - Alphanumeric Restrictions
 -----
 # Intro
 -----
-This was probably one of the more complex Vulnserver exploits that I made, requiring lots of jumping around, stack adjustments, and the infamous alphanumeric character restrictions. I took this as an extra opportunity to practice some manual encoding but also sped things up with [this nice script here](https:github.com/ihack4falafel/Slink/blob/master/Slink.py)
+This was probably one of the more complex Vulnserver exploits that I made, requiring lots of jumping around, stack adjustments, and the infamous alphanumeric character restrictions. I took this as an extra opportunity to practice some manual encoding but also sped things up with [this nice script here](https://github.com/ihack4falafel/Slink/blob/master/Slink.py)
 
 While on one hand I found this more complex than the HP NNM exercise in the CTP course, I simultaniously found it easier, probably just because I was familiar with the concepts at this point, and also knew how to fix a mis-aligned stack (not to mention how to spot it).
 
