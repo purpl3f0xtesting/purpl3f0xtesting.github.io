@@ -47,3 +47,17 @@ After taking the jump:
 Now I'm in the buffer of "D"s. There isn't a ton of room to work with here so I want to start jumping backwards into the "A" buffer. The biggest jump I can make with a `JMP SHORT` is 127 forwards or backwards, so for now I have to settle on "carving" out the shellcode. To exercise my skills in doing this manually, I did the math on my own to make the shellcode.
 
 Starting out, I need to look at the address of the last "D", and compare that to ESP. I need to make ESP point to the bottom of the "D"s so that any carved shellcode will appear there.
+
+Bottom of the "D"s: 0x00E8FFFE
+ESP after the jump: 0x00E8EC8C
+A difference of 0x1372, or 4978 decimal bytes.
+
+Fortunately, setting up ESP can be done with alphanumeric-friendly opcodes, so this won't have to be encoded.
+
+```
+54			PUSH ESP
+58			POP EAX
+66057013	ADD AX, 0x1370
+50			PUSH EAX
+5C			POP ESP
+```
