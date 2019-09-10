@@ -97,3 +97,11 @@ Where I am after the backwards jump: `0x00E9FF7A`
 A difference of 3468 decimal bytes, which means I modify my payload accordingly:
 
 ![]({{site.baseurl}}/assets/images/lter/10.png)
+
+The extra padding after `espAdj2` is to make sure the payload stays the same size and all the instructions injected so far stay where they are. Now that everything is in position, I test the ESP adjust:
+
+![]({{site.baseurl}}/assets/images/lter/11.png)
+
+![]({{site.baseurl}}/assets/images/lter/12.png)
+
+
