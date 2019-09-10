@@ -72,3 +72,28 @@ Using the addition method, I 0 out EAX, do some math to it to match `0x909080EB`
 
 ![]({{site.baseurl}}/assets/images/lter/09.png)
 
+Now that I have some space in the "A"s, I need to once again set ESP to the bottom of the "A"s so that carved shellcode appears there.
+
+Last "A": `0x00E9FFCB`
+
+ESP: `0x00E9FFFF`
+
+A difference of 0x34 or 52 decimal bytes.
+
+```nasm
+54      PUSH ESP
+58      POP EAX
+2C34    SUB AL, 0x34
+50      PUSH EAX
+5C      POP ESP
+```
+
+Here is where things get complicated. I need to put this adjust as high up as I can so I have room for carving. I need to pay attention to where I landed in the "A" buffer, and figure out how far away from the FIRST "A" I am, so I can adjust that initial crash buffer.
+
+The first "A": `0x00E9F1EE`
+
+Where I am after the backwards jump: `0x00E9FF7A`
+
+A difference of 3468 decimal bytes, which means I modify my payload accordingly:
+
+![]({{site.baseurl}}/assets/images/lter/10.png)
