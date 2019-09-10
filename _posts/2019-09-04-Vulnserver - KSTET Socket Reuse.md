@@ -1,6 +1,6 @@
 ---
 published: true
-title: Vulnserver KSTET - Socket Reuse
+title: OSCE Prep - Vulnserver KSTET - Socket Reuse
 ---
 -----
 # Intro
