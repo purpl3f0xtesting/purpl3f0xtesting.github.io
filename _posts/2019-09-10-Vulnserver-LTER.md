@@ -164,5 +164,6 @@ Everything should be ready to go. I let the payload execute fully:
 # Conclusion
 -----
 
-Overall this one was a good exercise not only in using creative ways of jumping around code, but using alphanumeric restrictions. When tampering with ESP like this you have to keep an eye on the stack and make sure it stays aligned, and if you can't avoid misaligning, you must fix it, otherwise all the parameters for your shell that get pushed onto the stack will be corrupted and the payload won't work
+Overall this one was a good exercise not only in using creative ways of jumping around code, but using alphanumeric restrictions. When tampering with ESP like this you have to keep an eye on the stack and make sure it stays aligned, and if you can't avoid misaligning, you must fix it, otherwise all the parameters for your shell that get pushed onto the stack will be corrupted and the payload won't work. As arbitrary as it seems, there are some programs out there that will convert input into alphanumeric characters in the real world, so knowing how to work with these limitations is important to being a security researcher and exploit dev.
 
+At this point, I've done just about everything vulnserver has to offer. There's one command I've yet to do, and to my understanding, it's a function that interprets your input as literal hex characters. I might do it at some point, but right now it doesn't seem all that critical to me. Other blogs have write ups for it so go check them out.
