@@ -26,3 +26,10 @@ SEH overwrite occurs when sending 4000 "A"s, and the offsets for SEH and nSEH ar
 
 ![]({{site.baseurl}}/assets/images/lter/04.png)
 
+![]({{site.baseurl}}/assets/images/lter/05.png)
+
+So right away I've got a basically functioning SEH overwrite in the works. From here on out, the alphanumeric restrictions will start affecting how the exploit is written.
+
+-----
+# Part 2 - Alphanumeric shellcoding
+-----
