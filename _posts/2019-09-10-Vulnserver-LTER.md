@@ -34,7 +34,7 @@ So right away I've got a basically functioning SEH overwrite in the works. From 
 # Part 2 - Alphanumeric shellcoding
 -----
 
-So now we get to the interesting part. A jump that doesn't use restricted characters. Remember that alphanumeric means we can only use 0x01 thru 0x7F. The usual JMP SHORT opcode, `\0xEB`, is outside of that range, so we can't use it.
+So now we get to the interesting part. A jump that doesn't use restricted characters. Remember that alphanumeric means we can only use 0x01 thru 0x7F. The usual `JMP SHORT` opcode, `\0xEB`, is outside of that range, so we can't use it.
 
 There are a few different ways to go about jumping with alphanumeric characters, but I chose to do it with a conditional jump, `JZ`, or `Jump if 0`. I chose this because I noticed that the ZF flag was set to 1.
 
@@ -44,3 +44,6 @@ After taking the jump:
 
 ![]({{site.baseurl}}/assets/images/lter/07.png)
 
+Now I'm in the buffer of "D"s. There isn't a ton of room to work with here so I want to start jumping backwards into the "A" buffer. The biggest jump I can make with a `JMP SHORT` is 127 forwards or backwards, so for now I have to settle on "carving" out the shellcode. To exercise my skills in doing this manually, I did the math on my own to make the shellcode.
+
+Starting out, I need to look at the address of the last "D", and compare that to ESP. I need to make ESP point to the bottom of the "D"s so that any carved shellcode will appear there.
