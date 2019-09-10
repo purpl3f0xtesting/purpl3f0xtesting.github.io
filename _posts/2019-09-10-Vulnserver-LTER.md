@@ -24,3 +24,5 @@ SEH overwrite occurs when sending 4000 "A"s, and the offsets for SEH and nSEH ar
 
 ![]({{site.baseurl}}/assets/images/lter/02.png)
 
+![]({{site.baseurl}}/assets/images/lter/04.png)
+
