@@ -164,4 +164,5 @@ Everything should be ready to go. I let the payload execute fully:
 # Conclusion
 -----
 
+Overall this one was a good exercise not only in using creative ways of jumping around code, but using alphanumeric restrictions. When tampering with ESP like this you have to keep an eye on the stack and make sure it stays aligned, and if you can't avoid misaligning, you must fix it, otherwise all the parameters for your shell that get pushed onto the stack will be corrupted and the payload won't work
 
