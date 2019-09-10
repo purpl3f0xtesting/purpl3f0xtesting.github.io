@@ -5,7 +5,7 @@ tags:
   - Pentesting
   - VulnHub
 ---
-p><img alt="" src="https://i.imgur.com/mvaODmx.png" style="height:400px; width:400px" /></p>
+<p><img alt="" src="https://i.imgur.com/mvaODmx.png" style="height:400px; width:400px" /></p>
 
 <hr />
 <p>Here we are with Kioptrix level 3! This one was significantly more challenging than the last two if you exploited it manually, but there were some ways to automate the process to get the initial foothold to make things easier.</p>
