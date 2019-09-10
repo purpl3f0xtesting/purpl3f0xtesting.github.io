@@ -1,6 +1,7 @@
 ---
 published: true
 title: Vulnserver LTER - Alphanumeric Restrictions
+tags: 'exploit-dev, security-research'
 ---
 
 
