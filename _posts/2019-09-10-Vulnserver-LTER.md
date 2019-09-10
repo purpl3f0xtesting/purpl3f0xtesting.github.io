@@ -1,6 +1,6 @@
 ---
 published: true
-title: Vulnserver LTER - Alphanumeric Restrictions
+title: OSCE Prep - Vulnserver LTER - Alphanumeric Restrictions
 tags:
   - Exploit Dev
   - Security Research
