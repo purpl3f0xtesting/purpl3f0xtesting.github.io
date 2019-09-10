@@ -6,6 +6,10 @@ Tags:
   - Exploit Dev
   - Security Research
 layout: post
+title: Vulnserver TRUN - Vanilla EIP overwrite
+tags:
+  - Exploit Dev
+  - Security Research
 ---
 
 <h2>Stack buffer overflow exercise: Vulnserver.exe</h2>
