@@ -33,3 +33,10 @@ So right away I've got a basically functioning SEH overwrite in the works. From 
 -----
 # Part 2 - Alphanumeric shellcoding
 -----
+
+So now we get to the interesting part. A jump that doesn't use restricted characters. Remember that alphanumeric means we can only use 0x01 thru 0x7F. The usual JMP SHORT opcode, `\0xEB`, is outside of that range, so we can't use it.
+
+There are a few different ways to go about jumping with alphanumeric characters, but I chose to do it with a conditional jump, `JZ`, or `Jump if 0`. I chose this because I noticed that the ZF flag was set to 0.
+
+![]({{site.baseurl}}/assets/images/lter/06.png)
+
