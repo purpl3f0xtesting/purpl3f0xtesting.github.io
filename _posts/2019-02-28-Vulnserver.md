@@ -1,11 +1,10 @@
 ---
-published: false
----
-
----
+published: true
 Title: Vulnserver TRUN - Vanilla EIP overwrite
-Published: True
-Tags: ["Exploit Dev", "Security Research"]
+Published: true
+Tags:
+  - Exploit Dev
+  - Security Research
 layout: post
 ---
 
@@ -245,4 +244,3 @@ layout: post
 <p>The final exploit is here: https://github.com/purpl3-f0x/vulnserver-trun/blob/master/vuln_server_bof.py</p>
 
 <p>If you want to try this yourself, stand up a Windows VM, it really doesn&#39;t matter which, but XP or 7 are the best choices, and try to get 32-bit if you can. <a href="https://www.immunityinc.com/products/debugger/">Immunity debugger</a> is free, and fairly easy to use once you get the hang of it.</p>
-
