@@ -18,4 +18,4 @@ Long-time readers of my original blog should be familiar with the basics of an S
 
 SEH overwrite occurs when sending 4000 "A"s, and the offsets for SEH and nSEH are around 3500:
 
-![]({{site.baseurl}}//assets/images/lter/01.png)
+![]({{site.baseurl}}/assets/images/lter/01.png)
