@@ -49,7 +49,9 @@ Now I'm in the buffer of "D"s. There isn't a ton of room to work with here so I 
 Starting out, I need to look at the address of the last "D", and compare that to ESP. I need to make ESP point to the bottom of the "D"s so that any carved shellcode will appear there.
 
 Bottom of the "D"s: `0x00E8FFFE`
+
 ESP after the jump: `0x00E8EC8C`
+
 A difference of 0x1372, or 4978 decimal bytes.
 
 Fortunately, setting up ESP can be done with alphanumeric-friendly opcodes, so this won't have to be encoded.
