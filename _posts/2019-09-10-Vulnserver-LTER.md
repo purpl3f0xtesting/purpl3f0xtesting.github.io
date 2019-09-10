@@ -133,3 +133,9 @@ After stepping-thru the carver:
 Now is when things get a little complex, because the stack is out of alignment again, and my payload is dying because of the misalignment:
 
 ![]({{site.baseurl}}/assets/images/lter/22.png)
+
+The stack only seems slightly out of alignment so it should be easy to fix. Looking at the Disassembler pane after letting everything run up to this point, I figure out a place to sneak in the adjustment.
+
+My `CALL EBX` is just above my nSEH overwrite, so counting the bytes up from there over the carved shellcode, I slip in a `INC ESP` instruction just before it:
+
+![]({{site.baseurl}}/assets/images/lter/23.png)
