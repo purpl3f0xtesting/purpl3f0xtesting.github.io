@@ -1,5 +1,10 @@
 ---
-published: false
+published: true
+layout: post
+tags:
+  - Pentesting
+  - Vulnhub
+title: VulnHub - Kioptrix 2
 ---
 <p><img alt="" src="https://i.imgur.com/MOwgmQ0.png" style="height:400px; width:400px" /></p>
 
