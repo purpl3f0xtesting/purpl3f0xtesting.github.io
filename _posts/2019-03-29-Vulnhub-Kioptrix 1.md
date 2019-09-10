@@ -1,5 +1,9 @@
 ---
-published: false
+published: true
+tags:
+  - Pentesting
+  - VulnHub
+title: VulnHub - Kioptrix 1
 ---
 <p>This one is going to be fairly short and sweet. It was a pretty simple box found over at vulnhub.</p>
 
