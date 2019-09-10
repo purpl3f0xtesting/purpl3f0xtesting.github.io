@@ -104,4 +104,8 @@ The extra padding after `espAdj2` is to make sure the payload stays the same siz
 
 ![]({{site.baseurl}}/assets/images/lter/12.png)
 
+The addresses changed here because they kept changing between restarts of the program in between changes to the payload, so disregard that, all that's important is that the offsets are calculated right.
 
+With the extra space prepared, we're ready to carve out a bigger jump back, that will take more shellcode that couldn't have been previously fit in. I want to leverage all the space I have for the final payload, so I want to jump to the start of the "A" buffer. I'll do this by manipulating EBX and then jumping to it. I'm using EBX since EAX will be tied up with the "carving".
+
+![]({{site.baseurl}}/assets/images/lter/13.png)
