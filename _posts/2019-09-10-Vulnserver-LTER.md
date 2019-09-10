@@ -139,3 +139,13 @@ The stack only seems slightly out of alignment so it should be easy to fix. Look
 My `CALL EBX` is just above my nSEH overwrite, so counting the bytes up from there over the carved shellcode, I slip in a `INC ESP` instruction just before it:
 
 ![]({{site.baseurl}}/assets/images/lter/23.png)
+
+![]({{site.baseurl}}/assets/images/lter/24.png)
+
+It was a much simpler fix than I was fearing, and it seems like it's a bit of a jury-rigged fix, but it works, so I left it in.
+
+![]({{site.baseurl}}/assets/images/lter/25.png)
+
+![]({{site.baseurl}}/assets/images/lter/26.png)
+
+At this point the stack is aligned properly and I'm no longer getting the `MISALIGNED` errors.
