@@ -4,6 +4,7 @@ title: OSCE Prep - Integard Exploit
 tags:
   - Exploit Dev
   - Security Research
+  - CVE-2010-5333
 ---
 <hr />
 <hr />
