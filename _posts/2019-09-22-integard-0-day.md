@@ -15,34 +15,34 @@ After getting some tips from a friend about a way of finding 0-days, I decided t
 # Vanilla EIP overwrite in the "NoJs" parameter
 -----
 Starting out with the fuzzing. I reused my Boofuzz HTTP fuzzer to start testing new parameters. I spent around an hour fuzzing random fields in the header such as HOST, User-Agent, etc. Then it occured to me to fuzz more of the parameters that were sent as data. There are several things being passed, such as "Password", "Redirect", "NoJs", and "LoginButtonName". I started from the bottom and moved up, fuzzing "LoginButtonName" first with no results. Upon fuzzing "NoJs", I got a crash, and saw that EIP was overwritten:
-![]({{site.baseurl}}//assets/images/integard_nojs/01.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/01.png)
 
-![]({{site.baseurl}}//assets/images/integard_nojs/02.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/02.png)
 
 I checked the Boofuzz results in SQLite to see how large the buffer was:
-![]({{site.baseurl}}//assets/images/integard_nojs/03.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/03.png)
 
 To replicate the crash, I set up the buffer in python:
-![]({{site.baseurl}}//assets/images/integard_nojs/04.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/04.png)
 
 As usual, the first step was just sending 1500 `A`'s, resulting in a crash that had `EIP` pointing to `41414141`. The next step was to find the offset:
-![]({{site.baseurl}}//assets/images/integard_nojs/05.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/05.png)
 
-![]({{site.baseurl}}//assets/images/integard_nojs/06.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/06.png)
 
-![]({{site.baseurl}}//assets/images/integard_nojs/07.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/07.png)
 
-![]({{site.baseurl}}//assets/images/integard_nojs/08.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/08.png)
 
 I reused the `JMP ESP` from my last Integard exploit, located at `0xE087557`
-![]({{site.baseurl}}//assets/images/integard_nojs/09.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/09.png)
 
 I re-ran through the bad character check, and found the following bad characters:
 
 `\x00\x26\x2F\x3D\x3F\x5C`
 
 Due to the nature of Integard acting as a "filter", I've never been able to make reverse or bind shells work, so I set my payload to meterpreter, and got a shell running as `NT_AUTHORITY/SYSTEM`:
-![]({{site.baseurl}}//assets/images/integard_nojs/10.png)
+![]({{site.baseurl}}/assets/images/integard_nojs/10.png)
 
 -----
 # Conclusion
