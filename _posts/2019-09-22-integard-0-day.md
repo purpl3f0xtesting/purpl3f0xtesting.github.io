@@ -1,5 +1,5 @@
 ---
-published: true
+published: false
 title: Exploit Dev - New Integard 0-day
 tags:
   - Exploit Dev
