@@ -15,6 +15,7 @@ After getting some tips from a friend about a way of finding 0-days, I decided t
 # Vanilla EIP overwrite in the "NoJs" parameter
 -----
 Starting out with the fuzzing. I reused my Boofuzz HTTP fuzzer to start testing new parameters. I spent around an hour fuzzing random fields in the header such as HOST, User-Agent, etc. Then it occured to me to fuzz more of the parameters that were sent as data. There are several things being passed, such as "Password", "Redirect", "NoJs", and "LoginButtonName". I started from the bottom and moved up, fuzzing "LoginButtonName" first with no results. Upon fuzzing "NoJs", I got a crash, and saw that EIP was overwritten:
+
 ![]({{site.baseurl}}/assets/images/integard_nojs/01.png)
 
 ![]({{site.baseurl}}/assets/images/integard_nojs/02.png)
