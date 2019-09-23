@@ -1,9 +1,10 @@
 ---
-published: false
-title: Exploit Dev - New Integard 0-day
+published: true
+title: Exploit Dev - New Integard 0-day - CVE-2019-16702
 tags:
   - Exploit Dev
   - Security Research
+  - CVE-2019-16702
 ---
 
 -----
@@ -61,6 +62,3 @@ I can't help but feel like this was low-hanging fruit, but it's still exciting t
 [Integard](http://www.tucows.com/preview/519612/Integard-Home)
 
 [Exploit](https://github.com/purpl3-f0x/exploit-dev/blob/master/nojs_integard.py)
-
-CVE:
-
