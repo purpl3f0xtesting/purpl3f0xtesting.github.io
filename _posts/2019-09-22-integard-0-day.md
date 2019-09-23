@@ -52,6 +52,11 @@ Due to the nature of Integard acting as a "filter", I've never been able to make
 ![]({{site.baseurl}}/assets/images/integard_nojs/10.png)
 
 -----
+# Disclosure
+-----
+When I tried to seek out Race River to inform them of this vulnerability I found that their websites are all 404'd. It appears as if this vendor may have gone out of business.
+
+-----
 # Conclusion
 -----
 I can't help but feel like this was low-hanging fruit, but it's still exciting to find a vulnerability that hasn't been found before, even if it's for a legacy program that's no longer in use. It was good practice and I learned a little bit about how to go about fuzzing `HTTP POST` requests appropriately.
