@@ -67,3 +67,5 @@ I can't help but feel like this was low-hanging fruit, but it's still exciting t
 [Integard](http://www.tucows.com/preview/519612/Integard-Home)
 
 [Exploit](https://github.com/purpl3-f0x/exploit-dev/blob/master/nojs_integard.py)
+
+[CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16702)
