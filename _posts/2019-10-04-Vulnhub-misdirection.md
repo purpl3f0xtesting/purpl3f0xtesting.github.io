@@ -29,7 +29,7 @@ I tested these directories one by one, but the only one that really had anything
 
 ![]({{site.baseurl}}/assets/images/misdirection/03.png)
 
-This shell was running as `www-data` so was limited. It was also a bit slow and not really proper, so I sent myself a better shell with:
+This shell was running as `www-data` so it was limited. It was also a bit slow and not really proper, so I sent myself a better shell with:
 
 ![]({{site.baseurl}}/assets/images/misdirection/04.png)
 
