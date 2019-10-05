@@ -28,3 +28,21 @@ Time to start digging into the web server more. I ran:
 I tested these directories one by one, but the only one that really had anything interesting was /debug:
 
 ![]({{site.baseurl}}/assets/images/misdirection/03.png)
+
+This shell was running as `www-data` so was limited. It was also a bit slow and not really proper, so I sent myself a better shell with:
+
+![]({{site.baseurl}}/assets/images/misdirection/04.png)
+
+Once I got this shell I "upgraded" it with
+```python
+python -c 'import pty;pty.spawn("/bin/bash")'
+```
+
+-----
+# Part 2 - Privilege Escalation 1
+-----
+Www-data is very limited in what it can do, so the first step is to priv esc up to a proper user. The name of the user on this system was `brexit`. I have to admit, I got stumped here for maybe an hour. There was a text-book priv esc technique that I completely skipped because I assumed this technique wouldn't apply to www-data: Checking sudo permissions:
+
+![]({{site.baseurl}}/assets/images/misdirection/05.png)
+
+On one hand, I thought this was a little too easy, but in a way, a little obscure too. I think it would be easy to assume that www-data would never have sudo permissions.
