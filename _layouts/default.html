@@ -25,9 +25,12 @@
             window.onload = function () {
                 var btn = document.getElementById("run"),
                     cd = document.getElementById("code"),
-                    chart,
+                    chart;
+                (btn.onclick = function () {
                     var code = cd.value;
-                
+                    if (chart) {
+                      chart.clean();
+                    }
                     chart = flowchart.parse(code);
                     chart.drawSVG('canvas', {
                       // 'x': 30,
