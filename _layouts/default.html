@@ -22,6 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="https://flowchart.js.org/flowchart-latest.js"></script>
 <script>
+  var code = document.getElementById("code");
   var diagram = flowchart.parse(code);
   diagram.drawSVG('diagram', {
                               'x': 0,
