@@ -103,7 +103,7 @@ The exploit was re-written to function as a multi-option exploit so it can chang
 
 ![](https://i.imgur.com/eYosc1I.png)
 
-![](https://i.imgur.com/MDQdaLH.png)
+![](https://i.imgur.com/yWGncYV.png)
 
 -----
 # Disclosure
