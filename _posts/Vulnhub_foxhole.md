@@ -204,3 +204,112 @@ This time, EIP was overwritten with `0x42424242`, which on the ASCII chart, is t
 
 ## Abusing EIP control
 
+We now control execution flow.
+
+What now? Shellcode? ROP? Not necessary. Think back to this:
+
+![]({{site.baseurl}}/assets/images/foxhole/21.png)
+
+Somewhere in this binary, `/bin/bash` is lurking. It's not outside the realm of possibility that this binary might be able to run bash. As a SUID binary owned by root, this would instantly drop us into a root shell. But how do we know?
+
+Let's examine things more closely:
+
+![]({{site.baseurl}}/assets/images/foxhole/28.png)
+
+If we look at all the functions present, we can see something called `secret`. We can dig into this function a little more:
+
+![](https://i.imgur.com/jBV6Ds6.png)
+
+We can see the function making a call to `system@plt`. In other words, this binary is running a Linux command. We can't see it in this disassembly, but we know from before that `/bin/bash` is present in the binary. Let's run with the assumption that this function is executing bash as root.
+
+How can we make the binary run this?
+
+If we check for the presence of ASLR on this system, we'll find that it is **off**:
+
+![](https://i.imgur.com/EnVFgT2.png)
+
+A value of 0 in this file means there is no ASLR. That means the addresses we're looking at here are NOT randomized. We can very simply overwrite EIP with the address of the secret function and run it!
+
+We'll make a new payload with python again. The system is in "Little Endian" format, so we have to take the address of `secret` and write it in reverse byte order (Not actually reverse order!) I'll explain:
+
+Let's take the address of `secret` and break it down into the four bytes that make it up.
+
+`0x565562ad`
+
+`0x56 0x55 0x62 0xad`
+
+Reverse them:
+
+`0xad 0x62 0x55 0x56`
+
+Then put them in the exploit:
+
+![](https://i.imgur.com/L91SHIH.png)
+
+Let's run the target in GDB with the new payload:
+
+![]({{site.baseurl}}/assets/images/foxhole/29.png)
+
+Wait a minute. That isn't right. EIP is `0x5562adc2`. That looks.........sorta right? We're missing the `56` from the front of the address, and a `c2` is tacked onto the end. Why?
+
+Let's put a breakpoint on the `ret` instruction in the `overflow()` function and run the binary again:
+
+![]({{site.baseurl}}/assets/images/foxhole/30.png)
+
+We hit the breakpoint, and at the top of the stack, we see the bad address. Let's dig deeper and look at more of the stack:
+
+![]({{site.baseurl}}/assets/images/foxhole/31.png)
+
+We can see some of our "A"s in the stack, but they also seem to be randomly broken up. In truth, I never figured out why this is happening.
+
+Since it looks like our overwrite is "shifted", I tried modifying the payload very slightly:
+
+![]({{site.baseurl}}/assets/images/foxhole/32.png)
+
+We pad the payload with one less "A", keep the overwrite, and fire it again:
+
+![]({{site.baseurl}}/assets/images/foxhole/33.png)
+
+Our application did NOT crash this time, and instead, we see it calling bash! We did it!! But before we go get our shell, let's learn what's happening.
+
+![]({{site.baseurl}}/assets/images/foxhole/34.png)
+
+We disassemble `overflow()` again and put a breakpoint at the `ret` instruction. We'll then run our exploit again:
+
+![]({{site.baseurl}}/assets/images/foxhole/35.png)
+
+We see that the top of the stack has the address to `secret()`. When the `ret` instruction is executed, the value on the top of the stack is "POP"d into EIP, and execution resumes there.
+
+We step through the uninteresting instructions inside of `secret()` until we reach this:
+
+![]({{site.baseurl}}/assets/images/foxhole/36.png)
+
+We're two instructions away from the call to `system()`, and the instruction we've paused on, `lea eax,[ebx-0x1fb4]` is a very important one. Let's break it down:
+
+`lea` means "load effective address". This is going to take the data stored at the memory address pointed to by the source operand, `[ebx-0x1fb4]`, into the destination operand, `eax`. We can see what is at that address very easily:
+
+![]({{site.baseurl}}/assets/images/foxhole/37.png)
+
+Nice. So the address of `/bin/bash` is going to be placed into `eax`. The next instruction is `push eax`. This is going to put that value in eax on top of the stack. When a call to `system()` is made, it takes arguments from the stack. So, with the address of `/bin/bash` on top of the stack, it becomes the first argument for `system()`, which means that the binary will execute this command.
+
+Now that we understand what's happening, let's go get our shell!
+
+![]({{site.baseurl}}/assets/images/foxhole/38.png)
+
+Wait? What happened? It crashed again, and there was no shell. Why?
+
+Simple. After `cat` ran, bash closed the `STDIN`, meaning that it terminal was not taking any more input. We can't tell because of how fast it happens, but we DID spawn a shell. It just died instantly.
+
+What's the fix?
+
+Trick `STDIN` into staying open.
+
+If we type the `cat` command without any input, something interesting happens:
+
+![]({{site.baseurl}}/assets/images/foxhole/39.png)
+
+At first it looks like the terminal is hung, but we can type into it. Anything we type is just "echoed" back to us. But the lesson here is that we have tricked `STDIN` into staying open. So let's abuse this new knowledge to get the shell.
+
+![](https://i.imgur.com/W26ub7j.png)
+
+The command is `(cat crash3; cat) | ./GiveMeRootPlz`. By putting a semi-colon ";" after the first command, we're telling bash to run this command and then run another. So we tell it to run `cat` again but with no input to hold STDIN open. The output of these chained commands is piped to the binary. The result is a shell running as root!!!
