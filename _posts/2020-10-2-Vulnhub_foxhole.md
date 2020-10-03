@@ -330,7 +330,7 @@ At long last, we can claim our victory:
 
 This box was fun to make, and was a nice opportunity to use my new skills obtained after taking eLearnSecurity's XDS course, which is where I learned to do Linux buffer overflows. While a somewhat niche skill, I felt that in the scope of Linux pwn challenges, this one was rather easy. A good intro to Linux pwn if you've never done it before. No need to bypass ASLR, NX, PIE, or stack cookies, and no need to generate or write shellcode. A binary that pwns itself almost.
 
-I plan on making more, that will continue the "foxhole" theme of having a web-based foothold with misleading hints, and more Linux pwn as the priv esc. Naturally, they'll be more and more difficult, but I liked dong this and want to keep it up.
+I plan on making more, that will continue the "foxhole" theme of having a web-based foothold with misleading hints, and more Linux pwn as the priv esc. Naturally, they'll be more and more difficult, but I liked doing this and want to keep it up.
 
 ## References
 [Steganography Definition From Wikipedia](https://en.wikipedia.org/wiki/Steganography)
