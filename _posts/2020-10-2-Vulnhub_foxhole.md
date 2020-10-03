@@ -1,5 +1,9 @@
 ---
 published: true
+title: Vulnhub - FoxHole
+tags:
+  -vulnhub
+  -pentesting
 ---
 -----
 # Intro
