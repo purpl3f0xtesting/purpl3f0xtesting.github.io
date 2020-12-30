@@ -241,7 +241,11 @@ pre {
   overflow-y: hidden;
 }
 
-hidden {
+textarea {
+  display: none;
+}
+
+button {
   display: none;
 }
 
