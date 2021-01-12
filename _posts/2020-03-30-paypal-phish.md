@@ -1,6 +1,6 @@
 ---
 published: true
-title: A Dangerously Convincing Phish
+title: Phishing Analysis - Paypal Scam
 tags:
   - Phishing
 ---
