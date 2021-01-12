@@ -1,6 +1,6 @@
 ---
 published: true
-title: Phishng Analysis - Steam Scams
+title: Phishing Analysis - Steam Scams
 tags:
   - phishing
 ---
