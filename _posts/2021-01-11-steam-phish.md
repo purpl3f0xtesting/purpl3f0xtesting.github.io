@@ -1,5 +1,8 @@
 ---
-published: false
+published: true
+title: Steam Scams
+tags:
+  - phishing
 ---
 -----
 # Intro
