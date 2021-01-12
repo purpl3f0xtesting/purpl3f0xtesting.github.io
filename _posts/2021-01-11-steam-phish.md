@@ -16,7 +16,7 @@ I decided to do a write-up of this because it's actually very well put together 
 -----
 # Dissecting A Phishing Site
 -----
-I did grab a screenshot of the main page, but the site presented itself as some big gaming tournament for first-person shooters, and falsely represented itself as being sponsored by Intel. The site asked you to log into Steam if you wanted to participate.
+I did not grab a screenshot of the main page, but the site presented itself as some big gaming tournament for first-person shooters, and falsely represented itself as being sponsored by Intel. The site asked you to log into Steam if you wanted to participate.
 
 One of the first things I looked at was the certificate:
 
