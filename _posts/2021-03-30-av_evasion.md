@@ -18,9 +18,8 @@ PEN-300 taught me a lot about modern antivirus evasion techniques. It was probab
 
 Just to make sure we have to actually bypass Defender, let's just play around for a bit and see how quickly it will catch us trying to run Meterpreter.  
 The first thing I want to do is refresh my memory, and check my Kali VM's IP address:
-<center><img src="/assets/images/av/1.png" />  
-  
-  <i><small>Figure 1 - Attacker IP</small></i></center>  
+<center><img src="/assets/images/av/1.png" /></center>  
+<center><i><small>Figure 1 - Attacker IP</small></i></center>  
 
 Next, let's make the default, non-encoded Meterpreter payload. Since we're making a stand-alone executable, we will not have to worry ourselves about "Bad characters" like we do with exploit development:  
 <center><img src="/assets/images/av/2.png" />  
