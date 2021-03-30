@@ -22,11 +22,9 @@ The first thing I want to do is refresh my memory, and check my Kali VM's IP add
 <center><i><small>Figure 1 - Attacker IP</small></i></center>  
 
 Next, let's make the default, non-encoded Meterpreter payload. Since we're making a stand-alone executable, we will not have to worry ourselves about "Bad characters" like we do with exploit development:  
-<center><img src="/assets/images/av/2.png" />  
-  
-  <i><small>Figure 2 - Creating the first payload</small></i></center>
+<center><img src="/assets/images/av/2.png" /></center>  
+<center><i><small>Figure 2 - Creating the first payload</small></i></center>
 
 Before we do anything, we need to make a change on the victim machine. We don't want Microsoft collecting samples of what we're doing, because it could mean that in the future, our techniques will become null and void after Microsoft updates Defender's detection abilities:  
-<center><img src="/assets/images/av/3.png" />  
-  
-  <i><small>Figure 3 - Configuring the victim</small></i></center>
+<center><img src="/assets/images/av/3.png" /></center>  
+<center><i><small>Figure 3 - Configuring the victim</small></i></center>
