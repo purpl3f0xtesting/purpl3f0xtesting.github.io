@@ -164,7 +164,7 @@ for(int i = 0; i < buf.Length; i++)
 }
 ```  
 
-Then, we'll allocate memory. If we look at [The MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc), we can see that the arguments, in order, are the memory address to start at, the buffer size, the allocation type, and the memory protection settings:  
+Then, we'll allocate memory. If we look at [the MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc), we can see that the arguments, in order, are the memory address to start at, the buffer size, the allocation type, and the memory protection settings:  
 
 <center><img src="https://i.imgur.com/cTUbwUQ.png" /><center>  
 <center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>  
@@ -173,5 +173,13 @@ We'll set the parameters to 0 (to let the OS chose the start address), 0x1000 by
 
 ```C#
 IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
-```
+```  
+
+Next, let's copy the shellcode into this newly allocated memory:  
+```C#
+Marshal.Copy(buf, 0, addr, size);
+```  
+
+Now it's time to run the shellcode. We'll spawn a new worker thread, point it to the start of the shellcode, and let it run.  
+Looking at [the MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread), we learn that the required arguments are the thread attributes, the stack size, the start address, additional parameters, creation flags, and thread ID.  
 
