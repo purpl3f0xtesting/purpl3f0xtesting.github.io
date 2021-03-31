@@ -274,3 +274,29 @@ We can do this with a short PowerShell script:
 
 
 This PowerShell script will download the DLL, load it directly into memory, and invoke whatever function we name. As shown above, we're invoking the `runner` function.
+
+Now, instead of just downloading and running this script, we can continue with our new strategy of downloading this script directly into memory. Interestingly, AMSI doesn't seem to impede me here:  
+<center><img src="/assets/images/av/33.png" /></center>  
+<center><i><small>Figure 33 - PowerShell one-liner to download .ps1 scripts into memory</small></i></center>  
+
+
+After pressing enter on the above command, the PowerShell terminal appears to hang. Let's go look at Kali:  
+<center><img src="/assets/images/av/34.png" /></center>  
+<center><i><small>Figure 34 - Meterpreter executes and functions as intended</small></i></center>  
+
+
+<center><img src="https://media1.tenor.com/images/c9a6630d6f567dbe11b8d2e1fd52e211/tenor.gif?itemid=18347002" /></center>  
+<center><i><small>Figure 35 - Do the Root Dance!</small></i></center>  
+
+
+Just for giggles, let's test dropping into a system shell and see if we can run OS commands:  
+<center><img src="/assets/images/av/35.png" /></center>  
+<center><i><small>Figure 36 - Spawning an OS shell and making a new file on the desktop</small></i></center>  
+
+
+<center><img src="/assets/images/av/36.png" /></center>  
+<center><i><small>Figure 37 - Looking at the new file</small></i></center>  
+
+## Wrapping up
+
+There we have it. Meterpreter running on Windows 10, with fully updated Defender definitions. By combining a few layers of encoding, and some PowerShell to run our code directly out of memory, we've bypassed AV and now have free reign over the system.
