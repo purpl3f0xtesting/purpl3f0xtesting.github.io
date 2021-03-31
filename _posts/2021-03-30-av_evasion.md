@@ -123,3 +123,25 @@ All of the code together will look like this:
 <center><img src="/assets/images/av/18.png" /></center>  
 <center><i><small>Figure 18 - Custom XOR encoder</small></i></center>
 
+With the code written, we compile the binary, and then go execute it:  
+<center><img src="/assets/images/av/19.png" /></center>  
+<center><i><small>Figure 19 - Building the executable</small></i></center>
+
+<center><img src="/assets/images/av/20.png" /></center>  
+<center><i><small>Figure 20 - The output of the encoder</small></i></center>
+
+## Getting the shellcode to run in a C# wrapper  
+
+We now have double XOR-encoded shellcode, but we have to get it to run somehow. C# can do this as well.  
+We'll make a new project and call it `shellcode_runner` or whatever you want, as long as you know what it does.  
+We'll need to interact with the Windows API to make this work. C# can do this in a very round-about way, but it's made simpler thanks to a Wiki called `pinvoke`:  
+<center><img src="/assets/images/av/22.png" /></center>  
+<center><i><small>Figure 22 - Pinvoke.net</small></i></center>
+
+Pinvoke has templates for invoking Windows API calls in C#, allowing you to simply copy-paste the code into your own project.  
+For this shellcode runner, we'll need `VirtualAlloc()`, `VirtualAllocExNuma()` (you'll see why later), `GetCurrentProcess()`, `CreateThread()`, and `WaitForSingleObject()`:  
+<center><img src="/assets/images/av/21.png" /></center>  
+<center><i><small>Figure 21 - Preparing API calls in C#</small></i></center>
+
+Next is the meat of the executable, the part that will actually run the shellcode while bypassing AV.  
+Our XOR-encoded payload should bypass some signature detection, but we also need to bypass `heuristics` as well. AV engines will typically "execute" programs in a sandboxed environment to analyze their behavior for anything suspicious. We'll have to fool the heuristic engine in Defender to make it think our program is legitimate.  
