@@ -101,7 +101,7 @@ In the payload output, pay attention to the size of the `buf` variable. This wil
   
 ## Adding more encoding  
   
-Remember above when I stated that MSFvenom's encoding won't be enough by itself? The biggest reason for this is due to the shellcode containing a `decoder stub` inside of itself. It has a small decoding loop it goes through when it executes, and most AV engines today can detect encoded Meterpreter payloads based on that decoder stub. So, to get around this, we'll add an extra layer of encoding ourselves, to encode the stub!  
+Remember above when I stated that MSFvenom's encoding won't be enough by itself? The biggest reason for this is due to the shellcode containing a `decoder stub` inside of itself. It has a small decoding loop it goes through when it executes, and most AV engines today can detect encoded Meterpreter payloads based on that decoder stub. So, to get around this, we'll add an extra layer of encoding ourselves to encode the stub!  
 We open up Visual Studio Community, and make a C# console project called `XOR_encoder`, and begin to build our custom XOR encoder. We start by just pasting the shellcode from MSFvenom into a new byte array variable. Make sure the size matches what MSFvenom gave you!  
   
 <center><img src="/assets/images/av/17.png" /></center>  
@@ -190,10 +190,10 @@ for(int i = 0; i < buf.Length; i++)
   
 Then, we'll allocate memory. If we look at [the MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc), we can see that the arguments, in order, are the memory address to start at, the buffer size, the allocation type, and the memory protection settings:  
   
-<center><img src="https://i.imgur.com/cTUbwUQ.png" /><center>  
-<center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>    
+<center><img src="https://i.imgur.com/cTUbwUQ.png" /></center>  
+<center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>
     <br/>
-  
+
 We'll set the parameters to 0 (to let the OS chose the start address), 0x1000 bytes in size, 0x3000 to set the Allocation type to `MEM_COMMIT` + `MEM_RESERVE`, and set the memory permissions to `PAGE_EXECUTE_READWRITE` with 0x40:  
   
 ```C#
