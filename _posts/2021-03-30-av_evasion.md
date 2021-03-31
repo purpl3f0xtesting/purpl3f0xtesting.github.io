@@ -209,7 +209,7 @@ Marshal.Copy(buf, 0, addr, size);
 Now it's time to run the shellcode. We'll spawn a new worker thread, point it to the start of the shellcode, and let it run.  
 Looking at [the MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread), we learn that the required arguments are the thread attributes, the stack size, the start address, additional parameters, creation flags, and thread ID.  
   
-<center><img src="https://i.imgur.com/Fz5fMUM.png" /><center>  
+<center><img src="https://i.imgur.com/Fz5fMUM.png" /></center>  
 <center><i><small>Figure 23 - MSDN for CreateThread</small></i></center>  
     <br/>
     
