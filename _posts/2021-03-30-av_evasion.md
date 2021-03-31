@@ -212,5 +212,5 @@ Now, let's cross our fingers and run the binary again and see what happens!
 <center><img src="/assets/images/av/26.png" /></center>  
 <center><i><small>Figure 27 - New payload still gets caught</small></i></center>
 
-<center><img src="https://tenor.com/view/disappointment-disappointed-food-review-meme-gif-16003613" /></center>  
+<center><img src="https://media1.tenor.com/images/b9a5f8f27fa8248cef817873d3bfc503/tenor.gif?itemid=16003613" /></center>  
 <center><i><small>Figure 28 - Disappointment</small></i></center>
