@@ -45,7 +45,7 @@ This isn't ideal, because Edge is using Windows Defender to scan things as it do
 However, we can click the ellipsis and chose to keep this download anyway:  
 <center><img src="/assets/images/av/6.png" /></center>  
 <center><i><small>Figure 6 - Keeping the binary</small></i></center>  
-  
+  <br/>
   
 <center><img src="/assets/images/av/7.png" /></center>  
 <center><i><small>Figure 7 - Keeping the binary pt.2</small></i></center>  
