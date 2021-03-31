@@ -213,7 +213,7 @@ Looking at [the MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/
 <center><i><small>Figure 23 - MSDN for CreateThread</small></i></center>  
 <br/>
     
-For most of these arguments wi'll supply 0s to let the API chose it's default actions, except for the start address, which will be the result that `VirtualAlloc()` returned to us earlier:  
+For most of these arguments we'll supply 0s to let the API chose it's default actions, except for the start address, which will be the result that `VirtualAlloc()` returned to us earlier:  
 ```C#
 IntPtr hThread = CreateThread(IntPrt.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
 ```  
