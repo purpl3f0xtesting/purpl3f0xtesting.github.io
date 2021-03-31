@@ -196,3 +196,21 @@ Lastly, we make a call to `WaitForSingleObject()` to keep the thread alive; othe
 WaitForSingleObject(hThread, 0xFFFFFFFF);
 ```  
 
+The complete code:  
+<center><img src="/assets/images/av/23.png" /></center>  
+<center><i><small>Figure 24 - The shellcode runner completed</small></i></center>
+
+With all this work done, we'll compile this binary. I keep my projects on a Samba share on Kali, and just run Visual Studio on my Windows host, so I'll switch back to Kali, and copy the compiled binary to my Apache web server:  
+<center><img src="/assets/images/av/24.png" /></center>  
+<center><i><small>Figure 25 - Copying the binary to Apache</small></i></center>  
+
+Back over on the victim, we'll download the binary again:  
+<center><img src="/assets/images/av/25.png" /></center>  
+<center><i><small>Figure 26 - Downloading the new payload</small></i></center>  
+
+Now, let's cross our fingers and run the binary again and see what happens!  
+<center><img src="/assets/images/av/26.png" /></center>  
+<center><i><small>Figure 27 - New payload still gets caught</small></i></center>
+
+<center><img src="https://tenor.com/view/disappointment-disappointed-food-review-meme-gif-16003613" /></center>  
+<center><i><small>Figure 28 - Disappointment</small></i></center>
