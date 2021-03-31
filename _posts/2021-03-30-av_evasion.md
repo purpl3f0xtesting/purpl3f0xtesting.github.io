@@ -165,8 +165,10 @@ for(int i = 0; i < buf.Length; i++)
 ```  
 
 Then, we'll allocate memory. If we look at [The MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc), we can see that the arguments, in order, are the memory address to start at, the buffer size, the allocation type, and the memory protection settings:  
+
 <center><img src="https://i.imgur.com/cTUbwUQ.png" /><center>  
 <center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>  
+
 We'll set the parameters to 0 (to let the OS chose the start address), 0x1000 bytes in size, 0x3000 to set the Allocation type to `MEM_COMMIT` + `MEM_RESERVE`, and set the memory permissions to `PAGE_EXECUTE_READWRITE` with 0x40:  
 
 ```C#
