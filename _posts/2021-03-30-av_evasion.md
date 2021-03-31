@@ -195,7 +195,7 @@ Then, we'll allocate memory. If we look at [the MSDN for VirtualAlloc](https://d
 <center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>
 <br/>
 
-We'll set the parameters to 0 (to let the OS chose the start address), 0x1000 bytes in size, 0x3000 to set the Allocation type to `MEM_COMMIT` + `MEM_RESERVE`, and set the memory permissions to `PAGE_EXECUTE_READWRITE` with 0x40:  
+We'll set the address argument to 0 (to let the OS chose the start address), 0x1000 bytes in size, 0x3000 to set the Allocation type to `MEM_COMMIT` + `MEM_RESERVE`, and set the memory permissions to `PAGE_EXECUTE_READWRITE` with 0x40:  
   
 ```C#
 IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
