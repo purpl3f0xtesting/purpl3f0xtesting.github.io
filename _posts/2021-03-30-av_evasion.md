@@ -191,7 +191,7 @@ for(int i = 0; i < buf.Length; i++)
   
 Then, we'll allocate memory. If we look at [the MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc), we can see that the arguments, in order, are the memory address to start at, the buffer size, the allocation type, and the memory protection settings:  
   
-<center><img src="https://i.imgur.com/cTUbwUQ.png" /></center>  
+<center><img src="/assets/images/av/msdn1.png" /></center>  
 <center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>
 <br/>
 
@@ -209,7 +209,7 @@ Marshal.Copy(buf, 0, addr, size);
 Now it's time to run the shellcode. We'll spawn a new worker thread, point it to the start of the shellcode, and let it run.  
 Looking at [the MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread), we learn that the required arguments are the thread attributes, the stack size, the start address, additional parameters, creation flags, and thread ID.  
   
-<center><img src="https://i.imgur.com/Fz5fMUM.png" /></center>  
+<center><img src="/assets/images/av/msdn2.png" /></center>  
 <center><i><small>Figure 23 - MSDN for CreateThread</small></i></center>  
 <br/>
     
@@ -243,7 +243,7 @@ Now, let's cross our fingers and run the binary again and see what happens!
 <center><i><small>Figure 27 - New payload still gets caught</small></i></center>
   <br/>
   
-<center><img src="https://media1.tenor.com/images/b9a5f8f27fa8248cef817873d3bfc503/tenor.gif?itemid=16003613" /></center>  
+<center><img src="/assets/images/av/disappointment.gif" /></center>  
 <center><i><small>Figure 28 - Disappointment</small></i></center>  
   <br/>
   
@@ -289,7 +289,7 @@ After pressing enter on the above command, the PowerShell terminal appears to ha
 <center><i><small>Figure 34 - Meterpreter executes and functions as intended</small></i></center>  
   <br/>
   
-<center><img src="https://media1.tenor.com/images/c9a6630d6f567dbe11b8d2e1fd52e211/tenor.gif?itemid=18347002" /></center>  
+<center><img src="/assets/images/av/root_dance.gif" /></center>  
 <center><i><small>Figure 35 - Do the Root Dance!</small></i></center>  
   <br/>
   
