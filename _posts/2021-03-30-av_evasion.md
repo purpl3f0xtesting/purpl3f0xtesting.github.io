@@ -183,3 +183,16 @@ Marshal.Copy(buf, 0, addr, size);
 Now it's time to run the shellcode. We'll spawn a new worker thread, point it to the start of the shellcode, and let it run.  
 Looking at [the MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread), we learn that the required arguments are the thread attributes, the stack size, the start address, additional parameters, creation flags, and thread ID.  
 
+<center><img src="https://i.imgur.com/Fz5fMUM.png" /><center>  
+<center><i><small>Figure 23 - MSDN for CreateThread</small></i></center>  
+  
+For most of these arguments wi'll supply 0s to let the API chose it's default actions, except for the start address, which will be the result that `VirtualAlloc()` returned to us earlier:  
+```C#
+IntPtr hThread = CreateThread(IntPrt.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
+```  
+
+Lastly, we make a call to `WaitForSingleObject()` to keep the thread alive; otherwise it will die. To make this call wait **indefinitely**, we give it a value of all hexidecimal Fs:  
+```C#
+WaitForSingleObject(hThread, 0xFFFFFFFF);
+```  
+
