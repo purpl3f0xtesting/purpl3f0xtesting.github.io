@@ -58,3 +58,49 @@ Predictably, as soon as we double-click the executable, Windows flags and delete
 <center><img src="/assets/images/av/11.png" /></center>  
 <center><i><small>Figure 11 - Empty downloads folder after Defender cleans infection</small></i></center>
 
+
+The second way we can download the binary is through PowerShell. This is probably more realistic since we won't always find something with RDP enabled, and may have a low-priv shell through other means:
+<center><img src="/assets/images/av/12.png" /></center>  
+<center><i><small>Figure 12 - Downloading payload with PowerShell</small></i></center>
+
+Curiously enough, when we attempt to run Meterpreter with PowerShell, it initially fires, but almost immediately dies as Defender catches it and shuts it down:  
+<center><img src="/assets/images/av/13.png" /></center>  
+<center><i><small>Figure 13 - Meterpreter calls back but then dies</small></i></center>
+
+We can also see how Defender has deleted our payload once again:  
+<center><img src="/assets/images/av/14.png" /></center>  
+<center><i><small>Figure 14 - Now you see it, now you don't!</small></i></center>
+
+-----
+# Preparing to bypass Defender
+-----  
+
+Now that we have proven that Defender is on and is catching our Metepreter payloads, we'll begin work on bypassing it.  
+For starters, let's generate shellcode in the C# format, and while we're at it, let's go ahead and use MSFvenom's built-in encoders. This encoding alone won't be enough, but it is a good first step:  
+<center><img src="/assets/images/av/15.png" /></center>  
+<center><i><small>Figure 15 - Generating a C# payload</small></i></center>
+
+In the payload output, pay attention to the size of the `buf` variable. This will be important later, so take a moment to make note of this:  
+<center><img src="/assets/images/av/16.png" /></center>  
+<center><i><small>Figure 16 - Byte array size</small></i></center>
+
+## Adding more encoding  
+
+Remember above when I stated that MSFvenom's encoding won't be enough by itself? The biggest reason for this is due to the shellcode containing a `decoder stub` inside of itself. It has a small decoding loop it goes through when it executes, and most AV engines today can detect encoded Meterpreter payloads based on that decoder stub. So, to get around this, we'll add an extra layer of encoding ourselves, to encode the stub!  
+We open up Visual Studio Community, and make a C# console project called `XOR_encoder`, and begin to build our custom XOR encoder. We start by just pasting the shellcode from MSFvenom into a new byte array variable. Make sure the size matches what MSFvenom gave you!  
+
+<center><img src="/assets/images/av/17.png" /></center>  
+<center><i><small>Figure 17 - Adding shellcode to the encoder</small></i></center>
+
+Next, we need to add the code that is the meat of the executable. I'll break down each line individually and explain what's happening.
+```C#
+byte[] encoded = new byte[buf.Length];
+```  
+Declaring a new byte array called `encoded` and assigning it the length of our buffer.  
+
+```C#
+for (int i = 0; i < buf.Length; i++)
+{
+  encoded[i] = (byte)(((uint)buf[i] ^ 0xAA) & 0xFF);
+}
+```  
