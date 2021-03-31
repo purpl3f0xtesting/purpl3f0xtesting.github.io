@@ -92,11 +92,12 @@ We open up Visual Studio Community, and make a C# console project called `XOR_en
 <center><img src="/assets/images/av/17.png" /></center>  
 <center><i><small>Figure 17 - Adding shellcode to the encoder</small></i></center>
 
-Next, we need to add the code that is the meat of the executable. I'll break down each line individually and explain what's happening.
+Next, we need to add the code that is the meat of the executable. I'll break down each line individually and explain what's happening.  
+We declare a new byte array called `encoded` and assigning it the length of our buffer: 
 ```C#
 byte[] encoded = new byte[buf.Length];
 ```  
-Declaring a new byte array called `encoded` and assigning it the length of our buffer.  
+This is a loop that will iterate over every byte and XOR it with the `^` operator, and use `0xAA` as the "key". Afterwards, the bytes are subjected to a bitwise `AND` with a value of `0xFF` to prevent them from becoming larger than 8 bits:  
 
 ```C#
 for (int i = 0; i < buf.Length; i++)
@@ -104,7 +105,7 @@ for (int i = 0; i < buf.Length; i++)
   encoded[i] = (byte)(((uint)buf[i] ^ 0xAA) & 0xFF);
 }
 ```  
-This is a loop that will iterate over every byte and XOR it with the `^` operator, and use `0xAA` as the "key". Afterwards, the bytes are subjected to a bitwise `AND` with a value of `0xFF` to prevent them from becoming larger than 8 bits.  
+This is formatting the bytes to be printed out 2 digits at a time, prepended with 0x, and appended with a comma: 
 
 ```C#
 StringBuilder hex = new StringBuilder(encoded.Length * 2);
@@ -113,7 +114,7 @@ foreach (byte b in encoded)
   hex.AppendFormat("0x{0:x2}, ", b);
 }
 ```  
-This is formatting the bytes to be printed out 2 digits at a time, prepended with 0x, and appended with a comma. Then we print it with:  
+Then we print it with:  
 ```C#
 Console.WriteLine("The payload is: " + hex.ToString());
 ```  
