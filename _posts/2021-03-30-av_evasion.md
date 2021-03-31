@@ -171,6 +171,7 @@ Our XOR-encoded payload should bypass some signature detection, but we also need
 The first thing we need to do in the code is set up the heuristics bypass. Since heuristics engines typically "emulate" execution instead of actually running the binary, we might be able to bypass detection by trying to invoke an uncommon API call that the AV engine **isn't** emulating. This would cause that API call to fail, and we can tell our program to halt execution if it detects this failure.  
 In this way, we can make the heuristics engine flag our program as "clean" by just exiting the program before anything malicious happens.  
 We'll invoke the `VirtualAllocExNuma()` API call to do this. This is an alternative version of `VirtualAllocEx()` that is meant to be used by systems with more than one physical CPU:  
+
 ```C#
 IntPtr mem = VirtualAllocExNuma(GetCurrentProcess(), IntPtr.Zero, 0x1000, 0x3000, 0x4, 0);
 if (mem == null)
@@ -192,7 +193,7 @@ Then, we'll allocate memory. If we look at [the MSDN for VirtualAlloc](https://d
   
 <center><img src="https://i.imgur.com/cTUbwUQ.png" /></center>  
 <center><i><small>Figure 22 - MSDN for VirtualAlloc</small></i></center>
-    <br/>
+<br/>
 
 We'll set the parameters to 0 (to let the OS chose the start address), 0x1000 bytes in size, 0x3000 to set the Allocation type to `MEM_COMMIT` + `MEM_RESERVE`, and set the memory permissions to `PAGE_EXECUTE_READWRITE` with 0x40:  
   
