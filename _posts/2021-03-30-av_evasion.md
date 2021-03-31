@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Bypassing Defender on modern Windows 10 systems
 tags:
   - Pentesting
