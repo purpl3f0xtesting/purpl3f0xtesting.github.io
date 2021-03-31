@@ -257,7 +257,7 @@ One thing we can try is loading Meterpreter directly into memory instead of putt
 Let's start by making a new C# project, but this time, we need to make a DLL, not an application.  
 Like before, we start by setting up some C# API calls:  
 <center><img src="/assets/images/av/29.png" /></center>  
-<center><i><small>Figure 29 - Perparing API calls in C#</small></i></center>  
+<center><i><small>Figure 29 - Preparing API calls in C#</small></i></center>  
   <br/>
   
 The rest of the executable will look virtually the same as the shellcode runner from before:  
