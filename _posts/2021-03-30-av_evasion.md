@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Bypassing Defender on modern Windows 10 systems
 tags:
   - Pentesting
@@ -300,3 +300,12 @@ Just for giggles, let's test dropping into a system shell and see if we can run 
 ## Wrapping up
 
 There we have it. Meterpreter running on Windows 10, with fully updated Defender definitions. By combining a few layers of encoding, and some PowerShell to run our code directly out of memory, we've bypassed AV and now have free reign over the system.
+
+-----
+# References
+-----  
+
+- [MSDN for CreateThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread)
+- [MSDN for VirtualAlloc](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc)
+- [Pinvoke](http://www.pinvoke.net/)
+- [My GitHub repo with the tools and source code shown here](https://github.com/purpl3f0xsecur1ty/useful_random_stuff)
