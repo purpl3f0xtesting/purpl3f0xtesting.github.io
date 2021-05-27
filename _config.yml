@@ -3,7 +3,6 @@ description: Security Research.
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-hacker
-markdown: kramdown
 plugins:
   - jekyll-feed
   - jeyll-avatar
