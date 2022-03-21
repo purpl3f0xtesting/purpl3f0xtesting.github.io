@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Reversing a simplistic crypto phishing app on the Play Store"
+title: "Real-world Android Malware Analysis 2: de.app.quickcurrencyswap"
 tags:
   - Malware Analysis
   - Reverse Engineering
