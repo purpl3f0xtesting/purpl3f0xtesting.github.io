@@ -98,7 +98,7 @@ With the combined evidence that was obtained through static analysis, dynamic an
 
 At the time of writing this, I have already reported the app to Google for takedown from the Play Store, and I have reported the website to its hosting provider for takedown, as well as filled a report with Microsoft and Google Safe Browsing.
 
-If you aren't already aware, there is a phenominal website out there to assist with and streamline the process of reporting phishing sites called `https://phish.report/`. Using this site, you can report malicious URLs directly to their hosting providers, as well as report them to Microsoft and Google, and keep track of the progress in marking the site malicious:
+If you aren't already aware, there is a phenomenal website out there to assist with and streamline the process of reporting phishing sites called `https://phish.report/`. Using this site, you can report malicious URLs directly to their hosting providers, as well as report them to Microsoft and Google, and keep track of the progress in marking the site malicious:
 <center><img src="/assets/images/quickswap/13.png" /></center>  
 <center><i><small>Figure 13 - Phish.Report</small></i></center>  
 <br/>
