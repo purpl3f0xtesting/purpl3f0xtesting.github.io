@@ -107,7 +107,7 @@ I've been using them to help report and take down any phishing domains I come ac
 
 ---
 # Conclusion
-
+---
 This app was very easy to reverse engineer, and to be honest, most crypto wallet phishing apps I see aren't much more complex. Most of them just load a website with webView and it's the site itself that does all the phishing activity. There are lots of different types of phishing apps out there, designed to steal social media accounts, bank accounts, and more, and those apps are usually more difficult to analyze because they utilize different techniques such as cookie stealing, or abusing the Android Accessibility Service and SMS receivers to read keystrokes and retrieve OTP codes from text messages.
 
 I hope that with the information I've shared here, I've helped educate you on how you can detect phishing attempts by suspicious-looking crypto currency wallet apps. Sometimes it's as simple as visiting the legitimate wallet's website to see if they even have an app at all, and if they do, they should have a link to the real thing. ALWAYS be wary of any app that says it needs your mnemonic phrase or recovery key.
@@ -116,7 +116,7 @@ Stay safe, keep your coins, and fuck phishers~
 
 ---
 ### References
----
+
 [Android Debug Bridge(adb)](https://developer.android.com/studio/command-line/adb)  
 [Jadx Java Decompiler](https://github.com/skylot/jadx)  
 [Phish.Report](https://phish.report/)  
