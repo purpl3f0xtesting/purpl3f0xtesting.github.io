@@ -1,6 +1,6 @@
 ---
 published: true
-title: "Reversing a simplistic crypto phishing app on the Play Store"
+title: "Real-world Android Malware Analysis 3: com.eth.appdroid"
 tags:
   - Malware Analysis
   - Reverse Engineering
