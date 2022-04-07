@@ -3,7 +3,9 @@ published: true
 title: "Go away"
 ---
 <center>
-  Nothing here
+  Nothing here <br>
+  
+  
 
-  <img src="https://static.wikia.nocookie.net/deltarune/images/c/c9/Spamton_overworld_painting.png/revision/latest?cb=20211021121248"/>
+  <img src="https://static.wikia.nocookie.net/deltarune/images/c/c9/Spamton_overworld_painting.png/" />
 </center>
